@@ -1,25 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Dashboard from './dashboard/Dashboard';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Bank from './layout/Bank/Bank';
+import MasterLayout from './layout/Home/MasterLayout';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <BrowserRouter>
+		<Routes>
+			<Route path="/" element={<MasterLayout />} />
+			<Route path="/bank" element={<Bank/>} />
+		</Routes>
+	</BrowserRouter>
+      <Dashboard />
+    </>
   );
 }
 
