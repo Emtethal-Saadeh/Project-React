@@ -11,7 +11,7 @@ const Header = () => {
     };
 
     return (
-        <Navbar className="navbar d-sm-none">
+        <Navbar className="navbar ">
             <div className="container-fluid">
                 <form onSubmit={handleBackButtonClick}>
                     <button type="submit" className="btn">

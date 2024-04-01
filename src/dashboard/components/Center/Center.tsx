@@ -4,11 +4,12 @@ import FinancialTools from './component/FinancialTools'
 import FinancialOverview from './component/FinancialOverview'
 import Transactions from './component/Transactions'
 import '../../../assets/styles/dashboard.scss';
+import { Col } from 'react-bootstrap'
 
 const Center = () => {
   return (
-    <div className="flex-grow-1 ">
-        <article className=" d-flex vh-100 d-none d-sm-flex">
+    <Col className="flex-grow-1 " md={6}>
+        <article className=" d-flex vh-100  d-sm-flex">
             <article className="container text-center">
                 <DashHeader/>
                 <FinancialTools/>
@@ -16,7 +17,7 @@ const Center = () => {
                 <Transactions/>
             </article>
         </article>
-    </div>
+    </Col>
   )
 }
 

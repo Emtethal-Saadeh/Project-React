@@ -5,7 +5,7 @@ import ListElem from './component/ListElem'
 
 const Expenses = () => {
   return (
-    <div className="ps-3 my-1 py-5 pt-2 bg-white rounded-5  ">
+    <div className="ps-3 my-1 py-5 pt-2 bg-white rounded-5  row ">
                <HeaderExp/>
                
                <Day/>

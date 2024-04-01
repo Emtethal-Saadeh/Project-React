@@ -4,7 +4,7 @@ import Header from './component/Header'
 
 const AnalyticsWeek = () => {
   return (
-    <div>
+    <div className=" my-3 mx-1 row px-3">
         <Header/>
         <Analytics/>
     </div>

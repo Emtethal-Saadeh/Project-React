@@ -1,6 +1,13 @@
 .App {
   text-align: center;
 }
+.dataCard {
+  border-radius: 0.5em;
+
+}
+.categoryCard {
+
+}
 
 .App-logo {
   height: 40vmin;

@@ -8,9 +8,9 @@ import { Navbar, Container } from 'react-bootstrap';
 
 const Header = () => {
   return (
-    <Navbar  className="d-sm-none" expand={false}>
+    <Navbar  expand={false}>
         <Container fluid>
-            <Navbar.Toggle aria-controls="offcanvasNavbar-expand" />
+            <Navbar.Toggle aria-controls="offcanvasNavbar-expand" className="d-sm-none"/>
             <Navbar.Brand href="#">Navbar Offcanvas</Navbar.Brand>
             <Logo />
 

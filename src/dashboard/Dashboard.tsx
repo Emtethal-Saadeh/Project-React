@@ -1,16 +1,15 @@
 import React from 'react';
-import LeftAside  from './components/aside/left/LeftAside ';
 import RigthAside from './components/aside/right/RigthAside';
 import Center from './components/Center/Center';
 import '../assets/styles/dashboard.scss';
+import { Row } from 'react-bootstrap';
 
 const Dashboard = () => {
   return (
-    <div className="d-flex flex-row bgc ">
-      <LeftAside/>
+    <Row className="d-flex flex-row bgc ">
       <Center/>
       <RigthAside/>
-    </div>
+    </Row>
   );
 };
 

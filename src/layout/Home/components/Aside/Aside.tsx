@@ -4,13 +4,20 @@ import TotalBalnce from './component/TotalBalnce';
 import AnalyticsWeek from './AnalyticsWeek/AnalyticsWeek';
 import CardsImg from './component/CardsImg';
 import Today from './Today/Today';
+import { Row ,Col } from 'react-bootstrap';
 
 const Aside = () => {
   return (
-    <div>
+    <div >
 
-      <TotalBalnce/>
-      <CardsImg/>
+      <Row>
+        <Col>
+        <TotalBalnce/>
+        </Col>
+        <Col md={8}>
+        <CardsImg/>
+        </Col>
+      </Row>
       <AnalyticsWeek/>
       <Today/>
        

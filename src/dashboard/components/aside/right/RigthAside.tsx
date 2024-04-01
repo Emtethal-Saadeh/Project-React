@@ -4,17 +4,18 @@ import Cards from './component/Cards'
 import Receivers from './component/Receivers'
 import RecentActivity from './component/RecentActivity'
 import '../../../../assets/styles/dashboard.scss';
+import { Col } from 'react-bootstrap'
 
 const RigthAside = () => {
   return (
-    <article className=" d-none d-sm-flex w-280 mt-0 ms-4 bg-white vh-100 rounded-5 rounded-start">
+    <Col className=" d-none d-md-flex w-280 mt-0 ms-4 bg-white vh-100 rounded-5 rounded-start">
       <div className=" container text-center bg-white rounded-5 rounded-start ">
         <Header/>
         <Cards/>
         <Receivers/>
         <RecentActivity/>
       </div>
-    </article>
+    </Col>
 
   )
 }

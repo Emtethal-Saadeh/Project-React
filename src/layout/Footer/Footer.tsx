@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Container } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
-import '../../../../assets/styles/dashboard.scss';
+import '../../assets/styles/dashboard.scss';
 
 const buttons = [
     { icon: 'fas fa-home', text: 'Home', action: '/' },
