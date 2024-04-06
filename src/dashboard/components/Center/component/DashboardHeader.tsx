@@ -4,7 +4,7 @@ import { Container, Navbar } from 'react-bootstrap';
 import ToolbarHeader from '../../../../layout/Home/components/Header/Toolbar/component/ToolbarHeader';
 import Toolbarbody from '../../../../layout/Home/components/Header/Toolbar/component/Toolbarbody';
 
-const DashHeader = () => {
+const DashboardHeader = () => {
   return (
     <>
     <div className="row pt-2 d-none d-sm-flex">
@@ -32,4 +32,4 @@ const DashHeader = () => {
   )
 }
 
-export default DashHeader
+export default DashboardHeader

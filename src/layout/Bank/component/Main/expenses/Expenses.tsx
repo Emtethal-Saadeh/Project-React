@@ -1,16 +1,16 @@
 import React from 'react'
-import HeaderExp from './component/HeaderExp'
+import HeaderExpenses from './component/HeaderExpenses'
 import Day from './component/Day'
-import ListElem from './component/ListElem'
+import ListElement from './component/ListElement'
 
 const Expenses = () => {
   return (
     <div className="ps-3 my-1 py-5 pt-2 bg-white rounded-5  row ">
-               <HeaderExp/>
+               <HeaderExpenses/>
                
                <Day/>
 
-               <ListElem/>
+               <ListElement/>
     </div>
   )
 }

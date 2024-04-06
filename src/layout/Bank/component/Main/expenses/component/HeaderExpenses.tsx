@@ -1,6 +1,6 @@
 import React from 'react'
 
-const HeaderExp = () => {
+const HeaderExpenses = () => {
   return (
     <div className="pt-2 row">
         <p className="text-start col fs-5">Expenses</p>
@@ -11,4 +11,4 @@ const HeaderExp = () => {
   )
 }
 
-export default HeaderExp
+export default HeaderExpenses

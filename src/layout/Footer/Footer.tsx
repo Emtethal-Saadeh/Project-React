@@ -1,6 +1,7 @@
 import React from 'react';
 import { Navbar, Container } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
+import clsx from 'clsx'; 
 import '../../assets/styles/dashboard.scss';
 
 const buttons = [
@@ -15,7 +16,10 @@ const Footer = () => {
     const navigate = useNavigate();
 
     const getButtonClass = (action: string) => {
-        return pathname === action ? 'text-body' : 'text-body-secondary';
+        return clsx({
+            'text-body': pathname === action,
+            'text-body-secondary': pathname !== action
+        });
     };
 
     const handleClick = (action: string) => {
@@ -28,7 +32,7 @@ const Footer = () => {
                 {buttons.map((button, index) => (
                     <form key={index} onSubmit={(e) => { e.preventDefault(); handleClick(button.action) }}>
                         <button type="submit" className="btn fs-3">
-                            <span className={`${button.icon} ${getButtonClass(button.action)}`}></span>
+                            <span className={clsx(button.icon, getButtonClass(button.action))}></span>
                         </button>
                     </form>
                 ))}

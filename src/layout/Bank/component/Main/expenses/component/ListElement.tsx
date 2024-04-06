@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Elem = [
+const element = [
     {
         backgroundColor: '#2c5fcc',
         iconClass: 'fas fa-shopping-basket',
@@ -20,10 +20,10 @@ const Elem = [
         amount: '$23.20'
     }
 ];
-const ListElem = () => {
+const ListElement = () => {
     return (
         <div className="row my-3 mt-4">
-            {Elem.map((elem, index) => (
+            {element.map((elem, index) => (
                 <div key={index} className="col rounded-5 mx-2" style={{ backgroundColor: elem.backgroundColor }}>
                     <p className="text-start my-5 rounded-5 row mt-4"><i className={`text-white ${elem.iconClass} fs-1`}></i></p>
                     <p className="row ps-3 my-0 text-white fs-15 text-start">{elem.title}</p>
@@ -34,4 +34,4 @@ const ListElem = () => {
     );
 }
 
-export default ListElem
+export default ListElement

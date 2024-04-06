@@ -19,7 +19,7 @@ const Header = () => {
                     </button>
                 </form>
                 <h4 className="ms-2 mt-1 col offcanvas-title text-center" id="offcanvaLabel">Monthly Budget</h4>
-                <button className="btn me-1 px-3 py-0" style={{ color: '#755fc6', backgroundColor: '#ebe7f7', fontSize: '15px' }}>Edit</button>
+                <button className="btn me-1 px-3 py-0 btn-bank" >Edit</button>
             </div>
         </Navbar>
   )

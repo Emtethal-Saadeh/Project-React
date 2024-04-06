@@ -1,5 +1,5 @@
 import React from 'react'
-import DashHeader from './component/DashHeader'
+import DashboardHeader from './component/DashboardHeader'
 import FinancialTools from './component/FinancialTools'
 import FinancialOverview from './component/FinancialOverview'
 import Transactions from './component/Transactions'
@@ -11,7 +11,7 @@ const Center = () => {
     <Col className="flex-grow-1 " md={6}>
         <article className=" d-flex vh-100  d-sm-flex">
             <article className="container text-center">
-                <DashHeader/>
+                <DashboardHeader/>
                 <FinancialTools/>
                 <FinancialOverview/>
                 <Transactions/>

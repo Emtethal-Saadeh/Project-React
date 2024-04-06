@@ -2,7 +2,7 @@ import React from 'react'
 import sourceData from "./BarData.json";
 import { Bar } from 'react-chartjs-2';
 
-const Barr = () => {
+const BarComponent = () => {
   return (
     <div className="dataCard customerCard">
         <Bar data={{
@@ -32,4 +32,4 @@ const Barr = () => {
   )
 }
 
-export default Barr
+export default BarComponent
