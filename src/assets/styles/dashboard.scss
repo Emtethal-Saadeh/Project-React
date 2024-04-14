@@ -1,0 +1,279 @@
+$primary-color:#6f83ff;
+$bgc:#f9f1fe;
+$bgc2:#fcfbfe;
+$bgs:#dfdeee;
+$bgph:#f1f0f3;
+
+$primary2-color:#f1f3ff;
+$pink:#ff33a5;
+$cwhite:#d1d3d4;
+$cwhite2:#6c757d;
+$cwhite3:#e6f9f1;
+$cblack2:#3a424b;
+$cgreen:#40cf94;
+$bgph:#f1f0f3;
+
+.h{
+    height: 50% !important; 
+    width: 50% !important;
+}
+
+.fz20{
+    font-size:20px;
+}
+.fz10{
+    font-size:10px;
+}
+.fs-12{
+    font-size: 12px;
+}
+.fs-15{
+    font-size: 15px;
+}
+.fz8{
+    font-size:8px;
+}
+.fz14{
+    font-size:14px;
+}
+.fz10{
+    font-size:10px;
+}
+
+
+.text-orange {
+    color: rgb(255, 106, 0) !important; 
+}
+.black-text {
+    color: black;
+}
+.text-pink{
+    color:$pink;
+}
+
+//LeftAside
+    //header
+    .left-aside-header{
+        margin: 1.5rem;
+        display: inline-flex;
+    }
+    .left-aside-logo{
+        width: 40px;
+        height: 40px;
+    }
+
+    //InteractiveElements
+    .btn {
+        &:hover {
+        .fa { 
+            color: $primary-color; 
+        }
+        }
+    }
+    
+    .line {
+        position: relative;
+        
+        &:hover {
+        .border-right-view {
+            opacity: 1;
+        }
+        }
+        
+        .border-right-view {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 2px;
+        height: 60%;
+        background-color: $primary-color;
+        opacity: 0;
+        transition: opacity 0.3s;
+        margin-top: 7px;
+        }
+    }
+
+    //AsideImg
+    .side-img{
+        width: 180px;
+        height: 180px;
+        margin: 0 auto;
+    }
+
+
+//RigthAside
+    //header
+    .prof-img{
+        height: 40px !important; 
+        width: 40px !important; 
+    }
+    //Cards
+    .img-card{
+        width: 100px;
+        height: 140px;
+    }
+    //Receivers
+    .profs-img{
+        height: 45px !important; 
+        width: 45px !important; 
+    }
+
+//Center 
+    //Overview 
+    .static-1{
+        width: 170px !important; 
+        height: 150px !important;
+    }
+    .status{
+        background-color: $cwhite3;
+        color: $cgreen;
+        width: 70px;
+        height: 40px;
+        border-radius: 10px;
+        padding-top: 5px;
+        .fa{
+            color: $cgreen;
+        }
+    }
+    //Tools
+    .haver {
+        &:hover {
+            background-color: $primary2-color !important; 
+            .fa { 
+                color: $primary-color !important; 
+                
+            }
+        }
+    }
+    //transactions 
+    .static-2{
+        width: 120px;
+        height: 200px !important;
+    }
+
+
+.btn-bank{
+    color: #755fc6 !important;
+    background-color: #ebe7f7 !important;
+    font-size: 15px !important;
+}
+
+
+
+
+
+
+.bgph{
+  background-color:$bgph !important;
+}
+
+
+
+.bgph{
+    background-color:$bgph ;
+}
+
+.bgs{
+    background-color:$bgs;
+}
+.bgc{
+    background-color: $bgc;
+}
+.bgc2{
+    background-color: $bgc2;
+}
+
+
+
+
+.fa { 
+    color: $cwhite2;
+}
+.log-market{
+    width: 60px;
+    height: 60px;
+}
+.CardsImg{
+    height: 150px !important;
+    width: 100% !important;
+}
+
+
+.w-280{
+    width: 280px;
+}
+.w-200{
+    width: 195px;
+}
+.vh-100 {
+    height: 100%;
+}
+
+
+
+
+
+.havb {
+    &:hover {
+        background-color: $cblack2 !important;
+        color: white !important;
+    }
+}
+
+
+
+.static-1-1{
+    height: 180px !important;
+}
+
+.static-3{
+    height: 150px !important;
+    width: 90% !important;
+}
+
+
+.h-10{
+    height: 95px !important;
+}
+
+.h-8{
+    height: 88px !important;
+}
+
+
+.border-pro{
+    border-style: dotted !important;
+    border-width: 2px;
+    border-color: $cwhite;
+}
+.logo-nike{
+    width: 25px !important; 
+}
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 767px) {
+    .w-200{
+        width: 100px;
+    }
+  .side-img-sm{
+        width: 85px;
+        height: 85px;
+    }
+    .left-aside-logo-sm{
+        margin-left: 5px;
+    }
+    
+}
+
+
+
+
