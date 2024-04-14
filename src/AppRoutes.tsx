@@ -8,6 +8,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 import Dashboard from './dashboard/Dashboard';
 import MasterLayout from './layout/MasterLayout';
+import Login from './login/Login';
+import { MyProvider } from './MyContext';
+import ProtectRouter from './ProtectRouter';
 
 
 
@@ -16,7 +19,9 @@ const AppRoutes = () => {
         {
           path: "/",
           element: (
+            <ProtectRouter>
               <MasterLayout />
+            </ProtectRouter>
           ),
           children: [
             {
@@ -35,9 +40,12 @@ const AppRoutes = () => {
           ],
         },
         { path: "*", element: <NotFound /> },
+        { path: '/login', element: <Login /> },
       ]);
       return (
+        <MyProvider>
           <RouterProvider router={routers}></RouterProvider>
+        </MyProvider>
       );
 }
 
