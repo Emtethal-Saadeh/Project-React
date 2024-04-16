@@ -9,8 +9,9 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import Dashboard from './dashboard/Dashboard';
 import MasterLayout from './layout/MasterLayout';
 import Login from './login/Login';
-import { MyProvider } from './MyContext';
+import { MyProvider } from './context/userNameStore';
 import ProtectRouter from './ProtectRouter';
+import Transactions from './transaction/Transaction';
 
 
 
@@ -33,8 +34,12 @@ const AppRoutes = () => {
               element: <Bank />,
             },
             {
-                path: "Dashboard",
+                path: "dashboard",
                 element: <Dashboard />,
+            },
+            {
+              path: "transactions",
+              element: <Transactions />,
             },
             
           ],

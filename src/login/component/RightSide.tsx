@@ -3,13 +3,13 @@ import { Button , Form , Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import sideimag from '../../assets/images/bb.png';
 import '../../assets/styles/Login.scss'
-import { MyContext } from '../../MyContext';
+import { useNameStore } from '../../context/userNameStore';
 
 const RightSide = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [error, setError] = useState('');
-    const { setText } = useContext(MyContext);
+    const { setusername } = useContext(useNameStore);
 
     const handleClick = () => {
         if (email.trim() === '') {
@@ -17,7 +17,7 @@ const RightSide = () => {
         } else {
             setError('');
             const username = email.split('@')[0]; 
-            setText(username);
+            setusername(username);
             navigate('/');
         }
     };

@@ -1,14 +1,14 @@
 import React, { useContext, type ReactNode } from 'react';
 import { Navigate } from "react-router-dom";
-import { MyContext } from './MyContext';
+import { useNameStore } from './context/userNameStore';
 
 interface ProtectRouterProps {
     children: ReactNode;
 }
 
 const ProtectRouter: React.FC<ProtectRouterProps> = ({ children }) => {
-    const { text } = useContext(MyContext);
-    if (text === '') {
+    const { username } = useContext(useNameStore);
+    if (username === '') {
         return <Navigate to="/login" />;
     }
     return <>{children}</>;

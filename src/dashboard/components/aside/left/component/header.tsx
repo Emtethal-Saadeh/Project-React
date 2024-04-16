@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import '../../../../../assets/styles/dashboard.scss';
-import { MyContext } from '../../../../../MyContext';
+import { useNameStore } from '../../../../../context/userNameStore';
 
 
 const Header = () => {
-  const { text } = useContext(MyContext);
+  const { username } = useContext(useNameStore);
   return (
     <div className="left-aside-header">
       <img
@@ -13,7 +13,7 @@ const Header = () => {
         alt="Avatar"
       />
       <h4 className="ms-2 mt-1 text-center fw-bold d-none d-md-inline-flex">
-        {text}
+        {username}
       </h4>
     </div>
   );
