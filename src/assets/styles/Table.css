@@ -1,37 +1,37 @@
-.Transactions {
+.transactions {
+  height: 100vh;
+}
+
+.app {
+  margin-top: 20px;
+  margin: auto;
+}
+
+th {
+  border-bottom: 1px solid #522da8;
+}
+
+h1 {
+  padding-top: 30px;
+  padding-bottom: 15px;
   text-align: center;
 }
 
-.Transactions-logo {
-  height: 40vmin;
-  pointer-events: none;
+.img3 {
+  width: 150px;
+  height: 150px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .Transactions-logo {
-    animation: Transactions-logo-spin infinite 20s linear;
-  }
+.img2 {
+  width: 75px;
+  height: 75px;
 }
-.Transactions-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+
+.color {
+  background-color: rgb(82, 122, 148);
   color: white;
 }
 
-.Transactions-link {
-  color: #61dafb;
-}
-
-@keyframes Transactions-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.back {
+  background-color: white;
 }/*# sourceMappingURL=Table.css.map */

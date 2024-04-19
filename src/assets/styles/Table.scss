@@ -1,77 +1,38 @@
 
 
-.Transactions {
-    text-align: center;
+.transactions {
     height: 100vh;
-  }
-  
-  .Transactions-header {
-    background-color: #282c34;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
-
-  
-  .App {
-    display: flex;
-    justify-content: center;
-    align-items: start;
-    margin-top: 20px;
 }
- 
-table {
-    border: 2px solid #522da8;
-    width: 900px;
-    height: 450px;
-    margin-top: 10px;
 
-
+.app {
+  margin-top: 20px;
+  margin: auto;
+  
 }
- 
+
 th {
     border-bottom: 1px solid #522da8;
 }
- 
-td {
-    text-align: center;
-}
 
-  
-  button {
-    margin-right: 5px;
-    padding: 5px 10px;
-    background-color: #522da8;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .pagination button:hover {
-    background-color: #2f1961 !important;
-  }
-  
-  
-  @media (max-width: 900px) {
-    table {
-        width: 700px;
-        margin: 0;
-    }
-    
-}
-
-@media (max-width: 700px) {
-    table {
-        width: 550px;
-    }
-    
-}
 h1{
     padding-top: 30px;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
+    text-align: center;
+}
+.img3{
+  width: 150px;
+  height: 150px;
+}
+.img2{
+  width: 75px;
+  height: 75px;
+}
+
+
+.color {
+  background-color: rgb(82, 122, 148); 
+  color: white; 
+}
+.back{
+  background-color: white;
 }

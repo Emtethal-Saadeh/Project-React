@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import '../../../../../assets/styles/dashboard.scss';
 
 const buttonsData = [
-    { icon: 'fa fa-bar-chart', text: 'Dashboard', route: '/Dashboard' },
+    { icon: 'fa fa-bar-chart', text: 'Dashboard', route: '/dashboard' },
     { icon: 'fa fa-exchange', text: 'Transactions', route: '/transactions' },
     { icon: 'fa fa-credit-card', text: 'Cards', route: '/cards' },
     { icon: 'fa fa-file', text: 'Reports', route: '/reports' },

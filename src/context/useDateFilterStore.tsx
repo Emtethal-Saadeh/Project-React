@@ -5,7 +5,7 @@ interface Store {
   setDateFilter: (date: string) => void; 
 }
 
-export const useDateFilterStore  = create<Store>((set) => ({
+export const dashboardStore  = create<Store>((set) => ({
   dateFilter: '',
   setDateFilter: (date) => {
     set({ dateFilter: date });

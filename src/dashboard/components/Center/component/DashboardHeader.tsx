@@ -3,14 +3,14 @@ import '../../../../assets/styles/dashboard.scss';
 import { Container, Navbar } from 'react-bootstrap';
 import ToolbarHeader from '../../../../layout/Home/components/Header/Toolbar/component/ToolbarHeader';
 import Toolbarbody from '../../../../layout/Home/components/Header/Toolbar/component/Toolbarbody';
-import { useDateFilterStore } from '../../../../context/useDateFilterStore';
+import { dashboardStore } from '../../../../context/useDateFilterStore';
 
 const DashboardHeader = () => {
-  const setDateFilter = useDateFilterStore((state) => state.setDateFilter);
+  const setdashboardStore = dashboardStore((state) => state.setDateFilter);
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedDate = e.target.value;
-    setDateFilter(selectedDate); 
+    setdashboardStore(selectedDate); 
   };
   return (
     <>

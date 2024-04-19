@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import '../../../../../assets/styles/dashboard.scss';
-import { useNameStore } from '../../../../../context/userNameStore';
+import { useAppStore } from '../../../../../context/userNameStore';
 
 
 const Header = () => {
-  const { username } = useContext(useNameStore);
+  const { username } = useContext(useAppStore);
   return (
     <div className="left-aside-header">
       <img

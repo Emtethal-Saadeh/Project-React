@@ -9,7 +9,7 @@ import { Col } from 'react-bootstrap'
 const Center = () => {
   return (
     <Col className="flex-grow-1 " md={6}>
-        <article className=" d-flex vh-100  d-sm-flex">
+        <article className=" d-flex d-sm-flex">
             <article className="container text-center">
                 <DashboardHeader/>
                 <FinancialTools/>

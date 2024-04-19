@@ -1,9 +1,9 @@
 import React from 'react'
 import '../../../../assets/styles/dashboard.scss';
-import { useDateFilterStore } from '../../../../context/useDateFilterStore';
+import { dashboardStore } from '../../../../context/useDateFilterStore';
 
 const TranactionsHeader = () => {
-  const dateFilter = useDateFilterStore((state) => state.dateFilter);
+  const dateFilter = dashboardStore((state) => state.dateFilter);
   return (
     
     <div className="m-2 row">

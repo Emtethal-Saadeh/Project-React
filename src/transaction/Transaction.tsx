@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
-import '../assets/styles/Table.scss';
+import React, { useState, useEffect } from 'react';
+import '../assets/styles/Table.scss'; 
 import useData from '../context/useData';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import sideimag from '../assets/images/t2.png';
+import type { Transaction } from '../context/Type'; // Use `import type` for type-only imports
 
-
-
-interface Column {
+interface Columns {
   heading: string;
   value: string;
 }
 
-const columns: Column[] = [
+const columns: Columns[] = [
   { heading: 'Name', value: 'name' },
   { heading: 'Category', value: 'category' },
   { heading: 'Date', value: 'date' },
@@ -17,11 +19,21 @@ const columns: Column[] = [
 ];
 
 const Transactions: React.FC = () => {
- 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10);
-
   const { loading, error, transactions } = useData();
+  const [rowData, setRowData] = useState<Transaction[]>([]);
+  const [rowColors, setRowColors] = useState<string[]>([]);
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (transactions) {
+      const formattedData = transactions.map((transaction) => transaction);
+      setRowData(formattedData);
+
+      // Generate row colors
+      const colors = transactions.map((_, index) => index % 2 === 0 ? '' : 'color');
+      setRowColors(colors);
+    }
+  }, [transactions]);
 
   if (loading) {
     return <div className='bg-white'>Loading...</div>;
@@ -31,42 +43,24 @@ const Transactions: React.FC = () => {
     return <div className='bg-white'>Error fetching data. Please try again later.</div>;
   }
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = transactions.slice(indexOfFirstItem, indexOfLastItem);
-
-  const paginate = (pageNumber: number) => { setCurrentPage(pageNumber); };
-
   return (
-    <div className="Transactions">
-      
+    <div className="transactions">
       <div>
-      <h1>Transactions Table</h1> 
-      
-          {Array.from({ length: Math.ceil(transactions.length / itemsPerPage) }, (_, i) => (
-            <button key={i} onClick={() => { paginate(i + 1); }}>{i + 1}</button>
-          ))}
+        <h1><img className="img3" src={sideimag} alt="Avatar" />Transactions Table </h1>
       </div>
-      <div className="App">
-        <table>
-          <thead>
-            <tr>
-              {columns.map((val, key) => (
-                <th key={key}>{val.heading}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {currentItems.map((val, key) => (
-              <tr key={key}>
-                <td>{val.name}</td>
-                <td>{val.category}</td>
-                <td>{val.date}</td>
-                <td>{val.amount}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div className="app">
+        <DataTable
+          value={rowData}
+          scrollable
+          scrollHeight="400px"
+          virtualScrollerOptions={{ itemSize: 46 }}
+          tableStyle={{ minWidth: '40rem',  borderRadius: '20px' , background:'white'}}
+          rowClassName={(data, index) => rowColors[data.id]} // Apply row color dynamically
+        >
+          {columns.map((col, index) => (
+            <Column headerClassName='back' key={index} field={col.value} header={col.heading} />
+          ))}
+        </DataTable>
       </div>
     </div>
   );
