@@ -4,7 +4,8 @@ import useData from '../context/useData';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import sideimag from '../assets/images/t2.png';
-import type { Transaction } from '../context/Type'; // Use `import type` for type-only imports
+import type { Transaction } from '../context/Type'; 
+import { Link } from 'react-router-dom';
 
 interface Columns {
   heading: string;
@@ -29,7 +30,6 @@ const Transactions: React.FC = () => {
       const formattedData = transactions.map((transaction) => transaction);
       setRowData(formattedData);
 
-      // Generate row colors
       const colors = transactions.map((_, index) => index % 2 === 0 ? '' : 'color');
       setRowColors(colors);
     }
@@ -47,6 +47,7 @@ const Transactions: React.FC = () => {
     <div className="transactions">
       <div>
         <h1><img className="img3" src={sideimag} alt="Avatar" />Transactions Table </h1>
+        <Link to="/transaction/new" className="btn color m-2 btn1">Add New Transaction</Link>
       </div>
       <div className="app">
         <DataTable
@@ -55,7 +56,7 @@ const Transactions: React.FC = () => {
           scrollHeight="400px"
           virtualScrollerOptions={{ itemSize: 46 }}
           tableStyle={{ minWidth: '40rem',  borderRadius: '20px' , background:'white'}}
-          rowClassName={(data, index) => rowColors[data.id]} // Apply row color dynamically
+          rowClassName={(data, index) => rowColors[data.id]} 
         >
           {columns.map((col, index) => (
             <Column headerClassName='back' key={index} field={col.value} header={col.heading} />

@@ -11,8 +11,12 @@ th {
   border-bottom: 1px solid #522da8;
 }
 
+.btn:hover {
+  background-color: white;
+}
+
 h1 {
-  padding-top: 30px;
+  padding-top: 20px;
   padding-bottom: 15px;
   text-align: center;
 }

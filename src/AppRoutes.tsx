@@ -9,6 +9,8 @@ import MasterLayout from './layout/MasterLayout';
 import Login from './login/Login';
 import { useAppStore } from './context/userNameStore';
 import Transactions from './transaction/Transaction';
+import NewTransaction from './transaction/NewTransaction';
+
 
 const AppRoutes = () => {
   const { username } = useContext(useAppStore); 
@@ -19,6 +21,7 @@ const AppRoutes = () => {
         <Route element={<MasterLayout />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/transactions" element={<Transactions />} />
+          <Route path="transaction/new" element={<NewTransaction/>} />
           <Route path="*" element={<Navigate to="/dashboard" />} /> 
         </Route>
       </Routes>
