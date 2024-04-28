@@ -9,6 +9,7 @@ import * as TransactionsAPI from '../dashboard/transactions-api';
 import { toast } from 'react-toastify';
 import { Calendar } from 'primereact/calendar';
 import 'react-toastify/dist/ReactToastify.css';
+import { v4 as uuidv4 } from 'uuid';
 
 const NewTransaction = () => {
   const validationSchema = Yup.object().shape({
@@ -35,7 +36,7 @@ const NewTransaction = () => {
       category: values.category,
       date: formattedDate,
       amount: values.amount,
-      id: TransactionsAPI.getAllTransactions().length + 1
+      id: parseInt(uuidv4(), 16)
     };
     TransactionsAPI.addTransaction(newTransaction);
     resetForm();

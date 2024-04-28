@@ -26,7 +26,6 @@ const Transactions: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [rowColors, setRowColors] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,8 +33,6 @@ const Transactions: React.FC = () => {
         const data = getAllTransactions(); 
         setTransactions(data);
         setLoading(false);
-        const colors = data.map((_, index) => index % 2 === 0 ? 'color' : '');
-        setRowColors(colors);
       } catch (error) {
         setError('Error fetching data. Please try again later.');
         setLoading(false);
@@ -43,7 +40,7 @@ const Transactions: React.FC = () => {
     };
 
     void fetchData(); 
-  }, []);
+  }, [transactions]);
 
   const handleRemoveTransaction = (id: number) => {
     removeTransaction(id); 
@@ -77,7 +74,7 @@ const Transactions: React.FC = () => {
           scrollHeight="400px"
           virtualScrollerOptions={{ itemSize: 46 }}
           tableStyle={{ minWidth: '40rem', borderRadius: '20px' , background:'white'}}
-          rowClassName={(data, index) => rowColors[data.id-1]} 
+          rowClassName={(data, index) => 'br-b'} 
         >
           {columns.map((col, index) => (
             <Column headerClassName='back' key={index} field={col.value} header={col.heading} />
@@ -86,7 +83,7 @@ const Transactions: React.FC = () => {
             headerClassName='back'
             body={(rowData) => (
               <div>
-                <button className="btn btn-white mr-1" onClick={() => { handleEditTransaction(rowData.id); }}><i className=" mt-1 fz20 fa fa-pencil text-black"></i></button>
+                <button className="btn btn-white mr-1" onClick={() => { handleEditTransaction(rowData.id); }}><i className=" mt-1 fz20 fa fa-pencil text-blue"></i></button>
                 <button className="btn btn-white" onClick={() => { handleRemoveTransaction(rowData.id); }}><i className=" mt-1 fz20 fa fa-trash text-danger"></i></button>
               </div>
             )}
