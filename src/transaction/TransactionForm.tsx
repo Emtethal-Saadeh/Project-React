@@ -1,16 +1,21 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import '../assets/styles/Table.scss';
 import sideimag from '../assets/images/gg.png';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import * as TransactionsAPI from '../dashboard/transactions-api';
 import { toast } from 'react-toastify';
 import { Calendar } from 'primereact/calendar';
 import 'react-toastify/dist/ReactToastify.css';
+import { type Transaction } from '../context/Type'; 
+import { editTransaction, getTransaction } from '../dashboard/transactions-api';
+import 'primereact/resources/primereact.min.css';
+interface TransactionFormProps {
+  onSaveButtonClicked: (updatedTransaction: Transaction) => void;
+}
 
-const NewTransaction = () => {
+const TransactionForm: React.FC<TransactionFormProps> = ({ onSaveButtonClicked }) => {
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required').min(3, 'Name must be at least 3 characters'),
     category: Yup.string().required('Category is required'),
@@ -18,31 +23,59 @@ const NewTransaction = () => {
     date: Yup.date().required('Date is required'),
   });
 
-  const initialValues = {
-    name: '',
-    date: new Date(),
-    category: '',
-    amount: 0,
-  };
-
-  const [successMessage] = useState('');
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [transaction, setTransaction] = useState<Transaction | null>(null);
 
-  const onSubmit = async (values: { date: { toLocaleDateString: () => any; }; name: any; category: any; amount: any; }, { resetForm, setSubmitting }: any) => {
-    const formattedDate = values.date.toLocaleDateString();
-    const newTransaction = {
-      name: values.name,
-      category: values.category,
-      date: formattedDate,
-      amount: values.amount,
-      id: TransactionsAPI.getAllTransactions().length + 1
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (id != null) {
+          const transactionId = parseInt(id);
+          const data = getTransaction(transactionId);
+          setTransaction(data);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     };
-    TransactionsAPI.addTransaction(newTransaction);
-    resetForm();
-    setSubmitting(false);
-    toast.success('Data saved successfully.');
-    navigate('/transactions');
+
+    void fetchData(); 
+  }, [id]); 
+
+  if (transaction == null) {
+    return <div>Loading...</div>; 
+  }
+
+  const initialValues = {
+    name: transaction.name,
+    date: new Date(transaction.date),
+    category: transaction.category,
+    amount: transaction.amount,
   };
+
+  const onSubmit = async (values: { date: Date; name: string; category: string; amount: number }, { setSubmitting }: any) => {
+    try {
+      const formattedDate = values.date.toLocaleDateString();
+      const updatedTransaction: Transaction = {
+        ...transaction,
+        name: values.name,
+        category: values.category,
+        date: formattedDate, 
+        amount: values.amount,
+      };
+
+      toast.success('Transaction updated successfully.');
+      navigate('/transactions');
+      editTransaction(updatedTransaction);
+      onSaveButtonClicked(updatedTransaction);
+      
+      
+    } catch (error) {
+      console.error('Error updating transaction:', error);
+    }
+  };
+  
 
   return (
     <>
@@ -75,7 +108,7 @@ const NewTransaction = () => {
                   <div className="form-group m-1">
                     <label>Date</label>
                     <div className="">
-                      <Calendar value={values.date} onChange={async (e) => await setFieldValue('date', e.value)} />
+                      <Calendar value={values.date} onChange={async (e) => await setFieldValue('date', e.value)}  id="date" name="date"/>
                     </div>
                     <ErrorMessage name="date" component="div" className="text-danger" />
                   </div>
@@ -84,12 +117,11 @@ const NewTransaction = () => {
                     <Field type="number" name="amount" step="1" className="form-control" />
                     <ErrorMessage name="amount" component="div" className="text-danger" />
                   </div>
-                  <button type="submit" className="btn color m-2 btn1" disabled={isSubmitting || !(isValid && dirty)}>Submit</button>
+                  <button type="submit" className="btn color m-2 btn1" disabled={isSubmitting || !(isValid && dirty)}>Edit</button>
                   <Link to="/transactions" className="btn btn-secondary btn1">Cancel</Link>
                 </Form>
               )}
             </Formik>
-            {(successMessage.length > 0) && <div className="text-success">{successMessage}</div>}
           </div>
         </div>
       </div>
@@ -97,4 +129,4 @@ const NewTransaction = () => {
   );
 };
 
-export default NewTransaction;
+export default TransactionForm;

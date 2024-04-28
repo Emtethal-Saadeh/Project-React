@@ -28,6 +28,17 @@ export class TransactionsAPI {
     transactions = transactions.filter(transaction => transaction.id !== id);
     localStorage.setItem('transactions', JSON.stringify(transactions));
   }
+
+  editTransaction(updatedTransaction: Transaction): void {
+    const transactions = this.getAllTransactions();
+    const index = transactions.findIndex(transaction => transaction.id === updatedTransaction.id);
+    if (index !== -1) {
+      transactions[index] = updatedTransaction;
+      localStorage.setItem('transactions', JSON.stringify(transactions));
+    } else {
+      throw new Error('Transaction not found');
+    }
+  }
 }
 
 
@@ -50,3 +61,9 @@ export function addTransaction(newTransaction: Transaction) {
     const transactionsAPI = new TransactionsAPI();
     transactionsAPI.removeTransaction(id);
   }
+
+  export function editTransaction(updatedTransaction: Transaction): void {
+    const transactionsAPI = new TransactionsAPI();
+    transactionsAPI.editTransaction(updatedTransaction);
+  }
+  

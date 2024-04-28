@@ -8,8 +8,13 @@ import Dashboard from './dashboard/Dashboard';
 import MasterLayout from './layout/MasterLayout';
 import Login from './login/Login';
 import { useAppStore } from './context/userNameStore';
-import Transactions from './transaction/Transaction';
+import Transactions from './transaction/Transactions';
 import NewTransaction from './transaction/NewTransaction';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import TransactionForm from './transaction/TransactionForm';
+import { type Transaction } from './context/Type';
+
 
 
 const AppRoutes = () => {
@@ -22,6 +27,9 @@ const AppRoutes = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/transactions" element={<Transactions />} />
           <Route path="transaction/new" element={<NewTransaction/>} />
+          <Route path="transactions/:id" element={<TransactionForm onSaveButtonClicked={function (updatedTransaction: Transaction): void {
+            throw new Error('Function not implemented.');
+          } }/>} /> 
           <Route path="*" element={<Navigate to="/dashboard" />} /> 
         </Route>
       </Routes>
@@ -30,6 +38,7 @@ const AppRoutes = () => {
 
   return (
     <BrowserRouter>
+    <ToastContainer />
       <Routes>
         <Route element={<Outlet />}>
           {(username.length > 0) ? (
