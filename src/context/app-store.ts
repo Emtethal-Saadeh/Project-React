@@ -1,5 +1,5 @@
 
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const CACHE_KEY = 'username';
 
@@ -8,10 +8,12 @@ interface ContextType {
   setusername: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const useAppStore = createContext<ContextType>({
+const AppStoreContext = createContext<ContextType>({
   username: '',
   setusername: () => {},
 });
+
+export const useAppStore = () => useContext(AppStoreContext);
 
 export const MyProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const cachedName = sessionStorage.getItem(CACHE_KEY);
@@ -25,10 +27,6 @@ export const MyProvider: React.FC<{ children: React.ReactNode }> = ({ children }
       sessionStorage.removeItem(CACHE_KEY);
     }
   }, [username]);
-
-  return (
-    <useAppStore.Provider value={{ username, setusername }}>
-      {children}
-    </useAppStore.Provider>
-  );
+  
+  return React.createElement(AppStoreContext.Provider, { value: { username, setusername } }, children);
 };

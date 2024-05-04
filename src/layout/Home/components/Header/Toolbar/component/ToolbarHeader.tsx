@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import '../../../../../../assets/styles/dashboard.scss';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { useAppStore } from '../../../../../../context/userNameStore';
+import { useAppStore } from '../../../../../../context/app-store';
 
 const ToolbarHeader = () => {
-  const { username } = useContext(useAppStore);
+  const { username } = useAppStore(); 
   return (
     <Offcanvas.Header closeButton>
         <img className="log-market rounded-circle" src="https://api.dicebear.com/6.x/avataaars/svg?backgroundColor=c0aede&seed=Abdullah" alt="Avatar"/>

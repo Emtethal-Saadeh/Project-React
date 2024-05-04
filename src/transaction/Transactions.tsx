@@ -5,8 +5,8 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import sideimag from '../assets/images/t2.png';
 import { Link , useNavigate } from 'react-router-dom';
-import { getAllTransactions, removeTransaction } from '../dashboard/transactions-api'; 
-import { type Transaction } from '../context/Type'; 
+import { transactionsAPI } from '../dashboard/transactions-api'; 
+import { type Transaction } from '../context/type'; 
 import { toast } from 'react-toastify';
 
 interface Columns {
@@ -26,11 +26,13 @@ const Transactions: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  // eslint-disable-next-line new-cap
+  const mytransactionapi=new transactionsAPI();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = getAllTransactions(); 
+        const data = mytransactionapi.getAllTransactions(); 
         setTransactions(data);
         setLoading(false);
       } catch (error) {
@@ -43,7 +45,7 @@ const Transactions: React.FC = () => {
   }, [transactions]);
 
   const handleRemoveTransaction = (id: number) => {
-    removeTransaction(id); 
+    mytransactionapi.removeTransaction(id); 
     setTransactions(transactions.filter(transaction => transaction.id !== id));
     toast.success('Removed successfully.');
   };

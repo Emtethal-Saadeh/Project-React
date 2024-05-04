@@ -1,5 +1,4 @@
-
-import React, { useContext } from 'react';
+import React from 'react';
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,18 +6,18 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import Dashboard from './dashboard/Dashboard';
 import MasterLayout from './layout/MasterLayout';
 import Login from './login/Login';
-import { useAppStore } from './context/userNameStore';
+import { useAppStore } from './context/app-store';
 import Transactions from './transaction/Transactions';
 import NewTransaction from './transaction/NewTransaction';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TransactionForm from './transaction/TransactionForm';
-import { type Transaction } from './context/Type';
+import { type Transaction } from './context/type';
 
 
 
 const AppRoutes = () => {
-  const { username } = useContext(useAppStore); 
+  const { username } = useAppStore(); 
 
   const PrivateRoute = () => {
     return (

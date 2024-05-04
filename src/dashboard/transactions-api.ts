@@ -1,7 +1,8 @@
-import { type Transaction } from "../context/Type";
+import { type Transaction } from "../context/type";
 
 
-export class TransactionsAPI {
+
+export class transactionsAPI {
   getAllTransactions(): Transaction[] {
     const transactionsJSON = localStorage.getItem('transactions');
     if (transactionsJSON != null) {
@@ -42,28 +43,5 @@ export class TransactionsAPI {
 }
 
 
-export function addTransaction(newTransaction: Transaction) {
-    const transactionsAPI = new TransactionsAPI();
-    transactionsAPI.addTransaction(newTransaction);
-  }
-  
-  export function getAllTransactions(): Transaction[] {
-    const transactionsAPI = new TransactionsAPI();
-    return transactionsAPI.getAllTransactions();
-  }
 
-  export function getTransaction(id: number): Transaction | null {
-    const transactionsAPI = new TransactionsAPI();
-    return transactionsAPI.getTransaction(id);
-  }
-  
-  export function removeTransaction(id: number): void {
-    const transactionsAPI = new TransactionsAPI();
-    transactionsAPI.removeTransaction(id);
-  }
-
-  export function editTransaction(updatedTransaction: Transaction): void {
-    const transactionsAPI = new TransactionsAPI();
-    transactionsAPI.editTransaction(updatedTransaction);
-  }
   

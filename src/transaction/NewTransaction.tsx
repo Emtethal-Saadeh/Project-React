@@ -5,11 +5,10 @@ import '../assets/styles/Table.scss';
 import sideimag from '../assets/images/gg.png';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import * as TransactionsAPI from '../dashboard/transactions-api';
+import { transactionsAPI } from '../dashboard/transactions-api';
 import { toast } from 'react-toastify';
 import { Calendar } from 'primereact/calendar';
 import 'react-toastify/dist/ReactToastify.css';
-import { v4 as uuidv4 } from 'uuid';
 
 const NewTransaction = () => {
   const validationSchema = Yup.object().shape({
@@ -28,6 +27,8 @@ const NewTransaction = () => {
 
   const [successMessage] = useState('');
   const navigate = useNavigate();
+  // eslint-disable-next-line new-cap
+  const mytransactionapi=new transactionsAPI();
 
   const onSubmit = async (values: { date: { toLocaleDateString: () => any; }; name: any; category: any; amount: any; }, { resetForm, setSubmitting }: any) => {
     const formattedDate = values.date.toLocaleDateString();
@@ -36,9 +37,9 @@ const NewTransaction = () => {
       category: values.category,
       date: formattedDate,
       amount: values.amount,
-      id: parseInt(uuidv4(), 16)
+      id: Math.floor(Math.random() * 10000) + 1
     };
-    TransactionsAPI.addTransaction(newTransaction);
+    mytransactionapi.addTransaction(newTransaction);
     resetForm();
     setSubmitting(false);
     toast.success('Data saved successfully.');
