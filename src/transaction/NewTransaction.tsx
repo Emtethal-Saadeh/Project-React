@@ -57,10 +57,6 @@ const NewTransaction = () => {
       <div className="p-2 pt-3">
         <header className="mb-3 d-flex justify-content-between align-items-center ">
           <div className="fs-1 fw-bold">Transactions</div>
-
-          <Link to="/transaction/new">
-            <div className="btn btn-primary">New Transaction</div>
-          </Link>
         </header>
 
         <div className="panel w-100">
