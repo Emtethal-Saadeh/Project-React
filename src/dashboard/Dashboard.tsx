@@ -6,9 +6,9 @@ import { Row } from 'react-bootstrap';
 
 const Dashboard = () => {
   return (
-    <Row className="d-flex flex-row bgc ">
-      <Center/>
-      <RigthAside/>
+    <Row className="d-flex flex-row">
+      <Center />
+      <RigthAside />
     </Row>
   );
 };

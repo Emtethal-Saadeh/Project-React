@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link, NavLink } from 'react-router-dom'; // Import Link from react-router-dom
 import '../../../../../assets/styles/dashboard.scss';
 
 const buttonsData = [
@@ -14,17 +14,18 @@ const InteractiveElements = () => {
   return (
     <div className="">
       {buttonsData.map((button, index) => (
-        <Link key={index} to={button.route}>
-          <div className="ms-4 btn my-1 d-block text-start line">
-            <p className="d-inline-flex">
-              <i className={button.icon + ' mt-1 fz20'}></i>
-            </p>
-            <p className="ms-2 text-body-secondary d-inline-flex d-none d-md-inline-flex">
+        <NavLink
+          key={index}
+          to={button.route}
+          className={({ isActive }) => (isActive ? 'active' : 'inactive')}>
+          <div className="menu-item ">
+            <i className={button.icon + ' w-30px icon'}></i>
+
+            <div className="label ms-2 text-secondary text-decoration-none d-none d-md-inline-flex">
               {button.text}
-            </p>
-            <div className="border-right-view"></div>
+            </div>
           </div>
-        </Link>
+        </NavLink>
       ))}
     </div>
   );
