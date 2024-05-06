@@ -65,6 +65,29 @@ export class transactionsAPI {
       return transactionDate.getFullYear() === currentDate.getFullYear();
     });
   }
+
+
+  getMonthlyTotal(): Record<string, number> {
+    const transactions = this.getAllTransactions();
+    const monthlyTotal: Record<string, number> = {};
+  
+    transactions.forEach(transaction => {
+      console.log("Transaction:", transaction); // Log the transaction being processed
+      const transactionDate = new Date(transaction.date);
+      const monthYearKey = `${transactionDate.getFullYear()}-${transactionDate.getMonth() + 1}`;
+  
+      if (monthlyTotal[monthYearKey] !== undefined) {
+        monthlyTotal[monthYearKey] += transaction.amount;
+      } else {
+        monthlyTotal[monthYearKey] = transaction.amount;
+      }
+    });
+  
+    return monthlyTotal;
+  }
+  
+  
+  
 }
 
 

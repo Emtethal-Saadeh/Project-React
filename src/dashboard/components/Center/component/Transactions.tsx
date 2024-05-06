@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../../../assets/styles/dashboard.scss';
 import TranactionsHeader from './TranactionsHeader';
-import TransactionsImg from './TransactionsImg';
+import BarComponent from '../../../../charts/BarComponent';
 
 const Transactions = () => {
   return (
@@ -9,7 +9,7 @@ const Transactions = () => {
 
         <div className=" my-1 text-center col rounded-5 bg-white ">
             <TranactionsHeader/>
-           <TransactionsImg/>
+           <BarComponent />
         </div>
                     
                 

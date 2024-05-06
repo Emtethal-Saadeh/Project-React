@@ -61,6 +61,7 @@ const Donut: React.FC<DonutProps> = () => {
         transactions = transactionsAPIInstance.getAllTransactions();
     }
 
+    
     const categoryMap = new Map<string, number>();
     transactions.forEach(transaction => {
       const { category, amount } = transaction;
