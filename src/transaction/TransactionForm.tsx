@@ -8,8 +8,8 @@ import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { Calendar } from 'primereact/calendar';
 import 'react-toastify/dist/ReactToastify.css';
-import { type Transaction } from '../context/Type'; 
-import { editTransaction, getTransaction } from '../dashboard/transactions-api';
+import { type Transaction } from '../context/type'; 
+import { transactionsAPI } from '../dashboard/transactions-api';
 import 'primereact/resources/primereact.min.css';
 interface TransactionFormProps {
   onSaveButtonClicked: (updatedTransaction: Transaction) => void;
@@ -26,13 +26,15 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onSaveButtonClicked }
   const navigate = useNavigate();
   const { id } = useParams();
   const [transaction, setTransaction] = useState<Transaction | null>(null);
+  // eslint-disable-next-line new-cap
+  const mytransactionapi=new transactionsAPI();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (id != null) {
           const transactionId = parseInt(id);
-          const data = getTransaction(transactionId);
+          const data = mytransactionapi.getTransaction(transactionId);
           setTransaction(data);
         }
       } catch (error) {
@@ -65,10 +67,13 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onSaveButtonClicked }
         amount: values.amount,
       };
 
-      toast.success('Transaction updated successfully.');
-      navigate('/transactions');
-      editTransaction(updatedTransaction);
+
+       mytransactionapi.editTransaction(updatedTransaction);
+       toast.success('Transaction updated successfully. :)');
+       navigate('/transactions');
       onSaveButtonClicked(updatedTransaction);
+      
+      
       
       
     } catch (error) {

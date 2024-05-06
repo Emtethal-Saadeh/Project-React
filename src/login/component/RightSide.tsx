@@ -1,15 +1,15 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { Button , Form , Row } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import sideimag from '../../assets/images/bb.png';
 import '../../assets/styles/Login.scss'
-import { useAppStore } from '../../context/userNameStore';
+import { useAppStore } from '../../context/app-store';
 
 const RightSide = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [error, setError] = useState('');
-    const { setusername } = useContext(useAppStore);
+    const { setusername } = useAppStore();
 
     const handleClick = () => {
         if (email.trim() === '') {
