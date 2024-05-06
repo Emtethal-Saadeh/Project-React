@@ -10,7 +10,7 @@ const MasterLayout = () => {
     <div className="d-flex h-100">
       <LeftAside />
 
-      <main className="flex-grow-1 overflow-auto ">
+      <main className="flex-grow-1 overflow-auto p-2">
         <Outlet />
         <Footer />
       </main>
