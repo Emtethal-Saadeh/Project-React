@@ -40,6 +40,31 @@ export class transactionsAPI {
       throw new Error('Transaction not found');
     }
   }
+
+
+  getTransactionsForLast24Hours(): Transaction[] {
+    const currentTime = new Date().getTime();
+    const transactions = this.getAllTransactions();
+    return transactions.filter(transaction => currentTime - new Date(transaction.date).getTime() <= 24 * 60 * 60 * 1000);
+  }
+
+  getTransactionsForLastMonth(): Transaction[] {
+    const currentDate = new Date();
+    const transactions = this.getAllTransactions();
+    return transactions.filter(transaction => {
+      const transactionDate = new Date(transaction.date);
+      return transactionDate.getFullYear() === currentDate.getFullYear() && transactionDate.getMonth() === currentDate.getMonth();
+    });
+  }
+
+  getTransactionsForLastYear(): Transaction[] {
+    const currentDate = new Date();
+    const transactions = this.getAllTransactions();
+    return transactions.filter(transaction => {
+      const transactionDate = new Date(transaction.date);
+      return transactionDate.getFullYear() === currentDate.getFullYear();
+    });
+  }
 }
 
 
