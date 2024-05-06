@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-empty-interface */
 /* eslint-disable new-cap */
 /* eslint-disable no-undef */
@@ -22,7 +23,7 @@ const Donut: React.FC<DonutProps> = () => {
   const [chartData, setChartData] = useState<DonutState>({
     options: { labels: [] },
     series: [],
-    labels: [],
+    labels: []
   });
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const Donut: React.FC<DonutProps> = () => {
       setChartData({
         options: { labels: categories },
         series: amounts,
-        labels: categories,
+        labels: categories
       });
     };
 
@@ -61,9 +62,8 @@ const Donut: React.FC<DonutProps> = () => {
         transactions = transactionsAPIInstance.getAllTransactions();
     }
 
-    
     const categoryMap = new Map<string, number>();
-    transactions.forEach(transaction => {
+    transactions.forEach((transaction) => {
       const { category, amount } = transaction;
       if (categoryMap.has(category)) {
         categoryMap.set(category, categoryMap.get(category)! + amount);

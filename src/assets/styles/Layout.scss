@@ -1,0 +1,46 @@
+$primary-color: #6f83ff;
+
+#root,
+body,
+html {
+    height: 100%;
+}
+
+body {
+    background: #f9efff70;
+}
+
+.panel {
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px 0px rgba(94, 94, 94, 0.1098039216);
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    padding-left: 20px;
+}
+
+.menu-item:hover {
+    background: rgba(236, 236, 236, 0.356);
+    border-right: 2px solid $primary-color;
+}
+
+.active .menu-item .icon,
+.active .menu-item .label {
+    color: $primary-color !important;
+}
+
+.active .menu-item {
+    color: $primary-color !important;
+    border-right: 3px solid $primary-color;
+}
+
+
+
+a {
+    text-decoration: none;
+}

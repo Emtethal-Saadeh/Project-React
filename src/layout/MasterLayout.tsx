@@ -1,19 +1,22 @@
-import React from 'react'
+/* eslint-disable prettier/prettier */
+import React from 'react';
 import Footer from './Footer/Footer';
 import { Outlet } from 'react-router-dom';
 import LeftAside from '../dashboard/components/aside/left/LeftAside ';
 import '../assets/styles/dashboard.scss';
+import '../assets/styles/Layout.scss';
 
 const MasterLayout = () => {
-    return (
-        <div className='bgc'>
-          <LeftAside />
-        <main>
-        <Outlet />
-        </main>
-          <Footer />
-        </div>
-      );
-}
+  return (
+    <div className="d-flex h-100">
+      <LeftAside />
 
-export default MasterLayout
+      <main className="flex-grow-1 overflow-auto p-2">
+        <Outlet />
+        <Footer />
+      </main>
+    </div>
+  );
+};
+
+export default MasterLayout;
