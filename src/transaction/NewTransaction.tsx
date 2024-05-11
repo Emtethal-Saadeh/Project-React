@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../assets/styles/Table.scss';
 import sideimag from '../assets/images/gg.png';
@@ -10,6 +10,7 @@ import { transactionsAPI } from '../dashboard/transactions-api';
 import { toast } from 'react-toastify';
 import { Calendar } from 'primereact/calendar';
 import 'react-toastify/dist/ReactToastify.css';
+import { type Category, getAllCategories } from '../categories/category-api';
 
 const NewTransaction = () => {
   const validationSchema = Yup.object().shape({
@@ -33,6 +34,21 @@ const NewTransaction = () => {
   const navigate = useNavigate();
   // eslint-disable-next-line new-cap
   const mytransactionapi = new transactionsAPI();
+  const [categories, setCategories] = useState<Category[]>([]);
+
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const categoryList = getAllCategories();
+        setCategories(categoryList);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+    
+    void fetchCategories();
+  }, []);
 
   const onSubmit = async (
     values: { date: { toLocaleDateString: () => any }; name: any; category: any; amount: any },
@@ -76,9 +92,11 @@ const NewTransaction = () => {
                   <label>Category</label>
                   <Field as="select" name="category" className="form-control">
                     <option value="">Select category</option>
-                    <option value="Supermarket">Supermarket</option>
-                    <option value="Personal">Personal</option>
-                    <option value="Home and Entertainment">Home and Entertainment</option>
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.name}>
+                        {category.name}
+                      </option>
+                    ))}
                   </Field>
                   <ErrorMessage name="category" component="div" className="text-danger" />
                 </div>

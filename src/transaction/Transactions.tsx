@@ -1,14 +1,18 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable new-cap */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import React, { useState, useEffect } from 'react';
-import '../assets/styles/Table.scss';
+import React, { useState, useEffect, useRef } from 'react';
+import { Dropdown } from 'primereact/dropdown';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import sideimag from '../assets/images/t2.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { transactionsAPI } from '../dashboard/transactions-api';
 import { type Transaction } from '../context/type';
 import { toast } from 'react-toastify';
+import Authenticate from '../Authenticate/Authenticate';
+import { useAppStore } from '../context/app-store';
+import { type Category, getAllCategories } from '../categories/category-api';
+
 
 interface Columns {
   heading: string;
@@ -27,8 +31,11 @@ const Transactions: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  // eslint-disable-next-line new-cap
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [globalFilter, setGlobalFilter] = useState<string | null>(null);
   const mytransactionapi = new transactionsAPI();
+  const { role } = useAppStore();
+  const dt = useRef<any>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,17 +50,54 @@ const Transactions: React.FC = () => {
     };
 
     void fetchData();
-  }, [transactions]);
+  }, []);
 
   const removeTransaction = (id: number) => {
     mytransactionapi.removeTransaction(id);
     setTransactions(transactions.filter((transaction) => transaction.id !== id));
     toast.success('Removed successfully.');
   };
+
   const editTransaction = (id: number) => {
-    console.log(id);
     navigate(`/transactions/${id}`);
   };
+
+  const onCategoryChange = (e: { value: any }) => {
+    setSelectedCategory(e.value);
+  };
+
+  const filteredTransactions = (selectedCategory != null)
+    ? transactions.filter((transaction) => transaction.category === selectedCategory)
+    : transactions;
+
+  const allCategories: Category[] = getAllCategories();
+
+  const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setGlobalFilter(e.target.value);
+  };
+
+  const header = (
+<div className="table-header d-flex justify-content-around align-items-center">
+  <div className="p-input-icon-left">
+    <i className="pi pi-search" />
+    <input type="search" onChange={onGlobalFilterChange} placeholder="Search" />
+  </div>
+  <div className="mx-3">OR</div>
+  <Dropdown
+    value={selectedCategory}
+    options={[
+      { label: 'All Categories', value: null },
+      ...allCategories.map(category => ({ label: category.name, value: category.name }))
+    ]}
+    onChange={onCategoryChange}
+    placeholder="Select a Category"
+  />
+</div>
+
+
+
+
+  );
 
   if (loading) {
     return <div className="bg-white">Loading...</div>;
@@ -67,43 +111,51 @@ const Transactions: React.FC = () => {
     <div className="p-2 pt-3">
       <header className="mb-3 d-flex justify-content-between align-items-center ">
         <div className="fs-1 fw-bold">Transactions</div>
-
         <Link to="/transaction/new">
           <div className="btn btn-primary">Add Transaction</div>
         </Link>
       </header>
 
       <div className="panel w-100">
+        
+
         <DataTable
-          value={transactions}
+          ref={dt}
+          value={filteredTransactions}
           scrollable
           tableClassName="table table-hover rounded-3"
           scrollHeight="400px"
           virtualScrollerOptions={{ itemSize: 46 }}
-          rowClassName={(data, index) => 'border-bottom'}>
+          rowClassName={(data, index) => 'border-bottom'}
+          header={header}
+          globalFilter={globalFilter}
+        >
           {columns.map((col, index) => (
-            <Column headerClassName="" key={index} field={col.value} header={col.heading} />
+            <Column key={index} field={col.value} header={col.heading} />
           ))}
 
           <Column
-            headerClassName="back"
             body={(rowData) => (
-              <div>
-                <button
-                  className="btn btn-icon me-1 "
-                  onClick={() => {
-                    editTransaction(rowData.id);
-                  }}>
-                  <i className="fa fa-pencil  text-warning"></i>
-                </button>
-                <button
-                  className="btn btn-icon me-1"
-                  onClick={() => {
-                    removeTransaction(rowData.id);
-                  }}>
-                  <i className="fa fa-trash  text-danger"></i>
-                </button>
-              </div>
+              <Authenticate>
+                <div>
+                  <button
+                    className="btn btn-icon me-1 "
+                    onClick={() => {
+                      editTransaction(rowData.id);
+                    }}
+                  >
+                    <i className="fa fa-pencil text-warning"></i>
+                  </button>
+                  <button
+                    className="btn btn-icon me-1"
+                    onClick={() => {
+                      removeTransaction(rowData.id);
+                    }}
+                  >
+                    <i className="fa fa-trash text-danger"></i>
+                  </button>
+                </div>
+              </Authenticate>
             )}
           />
         </DataTable>

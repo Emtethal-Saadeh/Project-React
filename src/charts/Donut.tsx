@@ -25,6 +25,7 @@ const Donut: React.FC<DonutProps> = () => {
     series: [],
     labels: []
   });
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchData = () => {
@@ -35,14 +36,15 @@ const Donut: React.FC<DonutProps> = () => {
         series: amounts,
         labels: categories
       });
+      setIsLoading(false);
     };
 
-    fetchData(); // Fetch data initially
+    fetchData(); 
 
     const unsubscribe = dashboardStore.subscribe(fetchData);
 
     return () => {
-      unsubscribe(); // Cleanup subscription
+      unsubscribe(); 
     };
   }, [period]);
 
@@ -60,6 +62,10 @@ const Donut: React.FC<DonutProps> = () => {
         break;
       default:
         transactions = transactionsAPIInstance.getAllTransactions();
+    }
+
+    if (transactions.length === 0) {
+      return { categories: [], amounts: [] };
     }
 
     const categoryMap = new Map<string, number>();
@@ -80,7 +86,13 @@ const Donut: React.FC<DonutProps> = () => {
 
   return (
     <div className="donut">
-      <Chart options={chartData.options} series={chartData.series} type="donut" width="400" />
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : chartData.series.length === 0 ? (
+        <p className="text-danger">There are no transfers</p>
+      ) : (
+        <Chart options={chartData.options} series={chartData.series} type="donut" width="400" />
+      )}
     </div>
   );
 };

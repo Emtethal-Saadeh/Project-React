@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import TransactionForm from './transaction/TransactionForm';
 import { type Transaction } from './context/type';
+import Categories from './categories/categories';
 
 
 
@@ -26,6 +27,7 @@ const AppRoutes = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/transactions" element={<Transactions />} />
           <Route path="transaction/new" element={<NewTransaction/>} />
+          <Route path="/category" element={<Categories/>} />
           <Route path="transactions/:id" element={<TransactionForm onSaveButtonClicked={function (updatedTransaction: Transaction): void {
             throw new Error('Function not implemented.');
           } }/>} /> 

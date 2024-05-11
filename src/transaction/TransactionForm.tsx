@@ -12,6 +12,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { type Transaction } from '../context/type';
 import { transactionsAPI } from '../dashboard/transactions-api';
 import 'primereact/resources/primereact.min.css';
+import { type Category, getAllCategories } from '../categories/category-api';
+
 interface TransactionFormProps {
   onSaveButtonClicked: (updatedTransaction: Transaction) => void;
 }
@@ -30,6 +32,7 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onSaveButtonClicked }
   const navigate = useNavigate();
   const { id } = useParams();
   const [transaction, setTransaction] = useState<Transaction | null>(null);
+  const [categories, setCategories] = useState<Category[]>([]);
   // eslint-disable-next-line new-cap
   const mytransactionapi = new transactionsAPI();
 
@@ -48,6 +51,19 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onSaveButtonClicked }
 
     void fetchData();
   }, [id]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const categoryList = getAllCategories();
+        setCategories(categoryList);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+    
+    void fetchCategories();
+  }, []);
 
   if (transaction == null) {
     return <div>Loading...</div>;
@@ -106,9 +122,11 @@ const TransactionForm: React.FC<TransactionFormProps> = ({ onSaveButtonClicked }
                   <label>Category</label>
                   <Field as="select" name="category" className="form-control">
                     <option value="">Select category</option>
-                    <option value="Supermarket">Supermarket</option>
-                    <option value="Personal">Personal</option>
-                    <option value="Home and Entertainment">Home and Entertainment</option>
+                    {categories.map((category) => (
+                      <option key={category.id} value={category.name}>
+                        {category.name}
+                      </option>
+                    ))}
                   </Field>
                   <ErrorMessage name="category" component="div" className="text-danger" />
                 </div>
