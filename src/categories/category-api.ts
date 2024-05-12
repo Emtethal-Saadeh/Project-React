@@ -7,6 +7,10 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 
 import { type Transaction } from "../context/type";
+import { transactionsAPI } from "../dashboard/transactions-api";
+
+
+const transactionsApi = new transactionsAPI();
 
 
 export interface Category {
@@ -50,4 +54,12 @@ export const updateCategory = async (updatedCategory: Category): Promise<void> =
     categories = categories.filter(category => category.id !== categoryId);
     localStorage.setItem('category', JSON.stringify(categories));
 };
+export const getMostRecentTransactions = (count: number = 5): Transaction[] => {
+    const allTransactions = transactionsApi.getAllTransactions();
+    return allTransactions.sort((a: { date: string | number | Date; }, b: { date: string | number | Date; }) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, count);
+};
   
+export const getTopTransactionsByAmount = (count: number = 5): Transaction[] => {
+    const allTransactions = transactionsApi.getAllTransactions();
+    return allTransactions.sort((a: { amount: number; }, b: { amount: number; }) => b.amount - a.amount).slice(0, count);
+};

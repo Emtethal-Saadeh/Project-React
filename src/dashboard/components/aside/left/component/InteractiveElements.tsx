@@ -7,7 +7,8 @@ import { useAppStore } from '../../../../../context/app-store';
 const buttonsData = [
   { icon: 'fa fa-bar-chart', text: 'Dashboard', route: '/dashboard' },
   { icon: 'fa fa-exchange', text: 'Transactions', route: '/transactions' },
-  { icon: 'fa fa-credit-card', text: 'Cards', route: '/category' },
+  { icon: 'fa fa-tags', text: 'Category', route: '/category' },
+  { icon: 'fa fa-credit-card', text: 'Cards', route: '/cards' },
   { icon: 'fa fa-file', text: 'Reports', route: '/reports' },
   { icon: 'fa fa-calendar-days', text: 'Calendar', route: '/calendar' },
   { icon: 'fa fa-sign-out-alt', text: 'Logout', route: '/login' }

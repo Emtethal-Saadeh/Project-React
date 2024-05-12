@@ -12,6 +12,9 @@ import { toast } from 'react-toastify';
 import Authenticate from '../Authenticate/Authenticate';
 import { useAppStore } from '../context/app-store';
 import { type Category, getAllCategories } from '../categories/category-api';
+import { ConfirmDialog } from 'primereact/confirmdialog';
+import { Toast } from 'primereact/toast';
+
 
 
 interface Columns {
@@ -32,10 +35,14 @@ const Transactions: React.FC = () => {
   const [error, setError] = useState('');
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [globalFilter, setGlobalFilter] = useState<string | null>(null);
+  const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
+  const [searchFilter, setSearchFilter] = useState<string | null>(null);
   const mytransactionapi = new transactionsAPI();
   const { role } = useAppStore();
   const dt = useRef<any>(null);
+
+  const [visible, setVisible] = useState(false);
+  const toastRef = useRef<Toast>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,6 +58,20 @@ const Transactions: React.FC = () => {
 
     void fetchData();
   }, []);
+
+  const accept = () => {
+    if (toastRef.current != null) {
+      if (selectedTransaction !== null) {
+        removeTransaction(selectedTransaction.id);
+        toastRef.current.show({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+      }
+    }
+  };
+
+  const acceptToDelete = (transactionToDelete: Transaction) => {
+    setSelectedTransaction(transactionToDelete);
+    setVisible(true);
+  };
 
   const removeTransaction = (id: number) => {
     mytransactionapi.removeTransaction(id);
@@ -73,30 +94,26 @@ const Transactions: React.FC = () => {
   const allCategories: Category[] = getAllCategories();
 
   const onGlobalFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setGlobalFilter(e.target.value);
+    setSearchFilter(e.target.value);
   };
 
   const header = (
-<div className="table-header d-flex justify-content-around align-items-center">
-  <div className="p-input-icon-left">
-    <i className="pi pi-search" />
-    <input type="search" onChange={onGlobalFilterChange} placeholder="Search" />
-  </div>
-  <div className="mx-3">OR</div>
-  <Dropdown
-    value={selectedCategory}
-    options={[
-      { label: 'All Categories', value: null },
-      ...allCategories.map(category => ({ label: category.name, value: category.name }))
-    ]}
-    onChange={onCategoryChange}
-    placeholder="Select a Category"
-  />
-</div>
-
-
-
-
+    <div className="table-header d-flex justify-content-around align-items-center">
+      <div className="p-input-icon-left">
+        <i className="pi pi-search" />
+        <input type="search" onChange={onGlobalFilterChange} placeholder="Search" />
+      </div>
+      <div className="mx-3">OR</div>
+      <Dropdown
+        value={selectedCategory}
+        options={[
+          { label: 'All Categories', value: null },
+          ...allCategories.map(category => ({ label: category.name, value: category.name }))
+        ]}
+        onChange={onCategoryChange}
+        placeholder="Select a Category"
+      />
+    </div>
   );
 
   if (loading) {
@@ -117,8 +134,6 @@ const Transactions: React.FC = () => {
       </header>
 
       <div className="panel w-100">
-        
-
         <DataTable
           ref={dt}
           value={filteredTransactions}
@@ -128,7 +143,7 @@ const Transactions: React.FC = () => {
           virtualScrollerOptions={{ itemSize: 46 }}
           rowClassName={(data, index) => 'border-bottom'}
           header={header}
-          globalFilter={globalFilter}
+          globalFilter={searchFilter}
         >
           {columns.map((col, index) => (
             <Column key={index} field={col.value} header={col.heading} />
@@ -136,7 +151,7 @@ const Transactions: React.FC = () => {
 
           <Column
             body={(rowData) => (
-              <Authenticate>
+              <Authenticate allowedRoles={['Admin']}>
                 <div>
                   <button
                     className="btn btn-icon me-1 "
@@ -146,14 +161,26 @@ const Transactions: React.FC = () => {
                   >
                     <i className="fa fa-pencil text-warning"></i>
                   </button>
+                  <Toast ref={toastRef} />
+                  <ConfirmDialog
+                    visible={visible}
+                    onHide={() => { setVisible(false); }}
+                    message={`Are you sure you want to delete "${selectedTransaction?.name}"?`}
+                    header="Confirmation"
+                    icon="pi pi-exclamation-triangle"
+                    accept={() => { accept(); }}
+                    style={{ width: '50vw' }}
+                    breakpoints={{ '1100px': '75vw', '960px': '100vw' }}
+                  />
                   <button
                     className="btn btn-icon me-1"
                     onClick={() => {
-                      removeTransaction(rowData.id);
+                      acceptToDelete(rowData);
                     }}
                   >
-                    <i className="fa fa-trash text-danger"></i>
+                    <i className="fa fa-trash  text-danger"></i>
                   </button>
+
                 </div>
               </Authenticate>
             )}
@@ -165,3 +192,4 @@ const Transactions: React.FC = () => {
 };
 
 export default Transactions;
+

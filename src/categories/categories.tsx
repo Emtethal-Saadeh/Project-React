@@ -134,7 +134,7 @@ const Categories: React.FC = () => {
     <Column
       headerClassName="back"
       body={(rowData) => (
-        <Authenticate>
+        <Authenticate allowedRoles={['Admin']}>
         <div>
           <button
             className="btn btn-icon me-1 "

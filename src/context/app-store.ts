@@ -4,7 +4,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const CACHE_KEY = 'username';
-const CACHE_KEY_ROLE = 'username';
+const CACHE_KEY_ROLE = 'role';
 
 
 interface ContextType {
