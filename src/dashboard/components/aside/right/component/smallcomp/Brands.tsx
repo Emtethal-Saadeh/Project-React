@@ -1,49 +1,43 @@
-import React from 'react'
-import '../../../../../../assets/styles/dashboard.scss';
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-empty-interface */
+/* eslint-disable new-cap */
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 
-const Brands = () => {
-    const brands = [
-        {
-          icon: 'fab fa-lyft text-pink',
-          name: 'Lyft',
-          date: '28 oct 2020',
-          amount: '$12.45'
-        },
-        {
-          icon: 'fa fa-check text-orange',
-          name: 'Nike store',
-          date: '28 oct 2020',
-          amount: '$74.99'
-        },
-        {
-          icon: 'fab fa-google text-primary',
-          name: 'Google',
-          date: '28 oct 2020',
-          amount: '$5.99'
-        },
-        {
-          icon: 'fab fa-lyft text-pink',
-          name: 'Lyft',
-          date: '28 oct 2020',
-          amount: '$4.50'
-        }
-      ];
+import React from 'react';
+import '../../../../../../assets/styles/dashboard.scss';
+import { getMostRecentTransactions, getTopTransactionsByAmount } from '../../../../../../categories/category-api';
+
+interface BrandsProps {
+  isRecentTransactions: boolean;
+}
+
+const Brands: React.FC<BrandsProps> = ({ isRecentTransactions }) => {
+  const fetchTransactions = () => {
+    if (isRecentTransactions) {
+      return getMostRecentTransactions(5);
+    } else {
+      return getTopTransactionsByAmount(5);
+    }
+  };
+
+  const transactions = fetchTransactions();
+
   return (
     <div>
-      {brands.map((brand, index) => (
+      {transactions.map((transaction, index) => (
         <div key={index} className="row">
-          <p className="col col-3 border border-1 rounded-5 d-flex justify-content-center align-items-center">
-            <i className={brand.icon + " fz20"}></i>
-          </p>
           <div className="col-6 text-start">
-            <p className="m-0 fw-bold fs-15">{brand.name}</p>
-            <p className="mt-1 text-body-secondary fs-12">{brand.date}</p>
+            <p className="m-0 fw-bold fs-15">{transaction.name}</p>
+            <p className="mt-1 text-body-secondary fs-12">{transaction.date}</p>
           </div>
-          <p className="col-3 fw-bold text-end mt-2">{brand.amount}</p>
+          <p className="col-3 fw-bold text-end mt-2">{transaction.amount}</p>
         </div>
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default Brands
+export default Brands;

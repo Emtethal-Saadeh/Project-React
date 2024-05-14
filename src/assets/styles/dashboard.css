@@ -87,8 +87,8 @@
 }
 
 .img-card {
-  width: 100px;
-  height: 140px;
+  width: auto;
+  height: auto;
 }
 
 .profs-img {
@@ -121,8 +121,8 @@
 }
 
 .static-2 {
-  width: 120px;
-  height: 200px !important;
+  width: auto;
+  height: auto !important;
 }
 
 .btn-bank {
@@ -145,6 +145,7 @@
 
 .bgc {
   background-color: #f9f1fe;
+  height: 100%;
 }
 
 .bgc2 {
