@@ -1,3 +1,6 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable prettier/prettier */
 import React from 'react';
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import './App.css';
@@ -14,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 import TransactionForm from './transaction/TransactionForm';
 import { type Transaction } from './context/type';
 import Categories from './categories/categories';
+import Settings from './settings/settings';
 
 
 
@@ -28,6 +32,7 @@ const AppRoutes = () => {
           <Route path="/transactions" element={<Transactions />} />
           <Route path="transaction/new" element={<NewTransaction/>} />
           <Route path="/category" element={<Categories/>} />
+          <Route path="/settings" element={<Settings/>} />
           <Route path="transactions/:id" element={<TransactionForm onSaveButtonClicked={function (updatedTransaction: Transaction): void {
             throw new Error('Function not implemented.');
           } }/>} /> 

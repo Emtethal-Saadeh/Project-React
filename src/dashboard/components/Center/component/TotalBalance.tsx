@@ -6,9 +6,12 @@ import React, { useEffect, useState } from 'react';
 import '../../../../assets/styles/dashboard.scss';
 import { dashboardStore } from '../../../../context/useDateFilterStore';
 import { transactionsAPI } from '../../../transactions-api';
+import { useAppStore } from '../../../../context/app-store';
 
 const TotalBalance = () => {
   const [totalBalance, setTotalBalance] = useState(0);
+  const { currencySign } = useAppStore();
+
   const { period } = dashboardStore();
   // eslint-disable-next-line new-cap
   const mytransactionapi = new transactionsAPI();
@@ -71,7 +74,7 @@ const TotalBalance = () => {
     <div className="mt-1 text-center col rounded-4 bg-white">
       <p className="fw-bold mt-5 my-1 pt-4">Total balance</p>
       <p className="ms-2 fs-1 fw-bold my-1">
-        <sup>$</sup>
+        <sup>{currencySign}</sup>
         {totalBalance}
       </p>
       <div className="status mx-auto my-4 mt-0">

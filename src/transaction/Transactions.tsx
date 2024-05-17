@@ -26,7 +26,6 @@ const columns: Columns[] = [
   { heading: 'Name', value: 'name' },
   { heading: 'Category', value: 'category' },
   { heading: 'Date', value: 'date' },
-  { heading: 'Amount', value: 'amount' }
 ];
 
 const Transactions: React.FC = () => {
@@ -38,8 +37,9 @@ const Transactions: React.FC = () => {
   const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
   const [searchFilter, setSearchFilter] = useState<string | null>(null);
   const mytransactionapi = new transactionsAPI();
-  const { role } = useAppStore();
   const dt = useRef<any>(null);
+  const { currencySign } = useAppStore();
+
 
   const [visible, setVisible] = useState(false);
   const toastRef = useRef<Toast>(null);
@@ -148,6 +148,15 @@ const Transactions: React.FC = () => {
           {columns.map((col, index) => (
             <Column key={index} field={col.value} header={col.heading} />
           ))}
+          <Column
+          field="amount"
+          header="Amount"
+          body={(rowData) => (
+            <span>
+              {currencySign} {rowData.amount}
+            </span>
+          )}
+        />
 
           <Column
             body={(rowData) => (
