@@ -19,6 +19,7 @@ import { Toast } from 'primereact/toast';
 import { Card } from 'primereact/card';
 import Authenticate from '../Authenticate/Authenticate'; 
 import { useAppStore } from '../context/app-store';
+import { useNavigate } from 'react-router-dom';
 
 interface Columns {
     heading: string;
@@ -37,6 +38,7 @@ const Categories: React.FC = () => {
     const [visible, setVisible] = useState(false);
     const toast = useRef<Toast>(null);
     const { currencySign } = useAppStore();
+    const navigate = useNavigate();
 
 
     useEffect(() => {
@@ -115,7 +117,8 @@ const Categories: React.FC = () => {
             <div className="panel w-100">
                 <div className="row">
                     {categories.map((category) => (
-                        <div key={category.id} className="col-12 col-md-6 col-lg-4 mb-3">
+                        <div key={category.id} className="col-12 col-md-6 col-lg-4 mb-3" onClick={() => navigate(`/transactions?category=${category.name}`)}
+                        style={{ cursor: 'pointer' }}>
                             <Card >
                                 <div className="d-flex flex-column align-items-center mb-3">
                                     {category.icon && (

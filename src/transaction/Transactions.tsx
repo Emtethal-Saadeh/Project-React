@@ -5,7 +5,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Dropdown } from 'primereact/dropdown';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { transactionsAPI } from '../dashboard/transactions-api';
 import { type Transaction } from '../context/type';
 import { toast } from 'react-toastify';
@@ -14,8 +14,6 @@ import { useAppStore } from '../context/app-store';
 import { type Category, getAllCategories } from '../categories/category-api';
 import { ConfirmDialog } from 'primereact/confirmdialog';
 import { Toast } from 'primereact/toast';
-
-
 
 interface Columns {
   heading: string;
@@ -30,16 +28,19 @@ const columns: Columns[] = [
 
 const Transactions: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const categoryFromParams = searchParams.get('category');
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(categoryFromParams);
   const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
   const [searchFilter, setSearchFilter] = useState<string | null>(null);
   const mytransactionapi = new transactionsAPI();
   const dt = useRef<any>(null);
   const { currencySign } = useAppStore();
-
 
   const [visible, setVisible] = useState(false);
   const toastRef = useRef<Toast>(null);
@@ -47,7 +48,7 @@ const Transactions: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = mytransactionapi.getAllTransactions();
+        const data =  mytransactionapi.getAllTransactions();
         setTransactions(data);
         setLoading(false);
       } catch (error) {
@@ -58,6 +59,12 @@ const Transactions: React.FC = () => {
 
     void fetchData();
   }, []);
+
+  useEffect(() => {
+    if (categoryFromParams != null) {
+      setSelectedCategory(categoryFromParams);
+    }
+  }, [categoryFromParams]);
 
   const accept = () => {
     if (toastRef.current != null) {
@@ -85,6 +92,7 @@ const Transactions: React.FC = () => {
 
   const onCategoryChange = (e: { value: any }) => {
     setSelectedCategory(e.value);
+    navigate(`/transactions?category=${e.value}`);
   };
 
   const filteredTransactions = (selectedCategory != null)
@@ -149,47 +157,41 @@ const Transactions: React.FC = () => {
             <Column key={index} field={col.value} header={col.heading} />
           ))}
           <Column
-          field="amount"
-          header="Amount"
-          body={(rowData) => (
-            <span>
-              {currencySign} {rowData.amount}
-            </span>
-          )}
-        />
-
+            field="amount"
+            header="Amount"
+            body={(rowData) => (
+              <span>
+                {currencySign} {rowData.amount}
+              </span>
+            )}
+          />
           <Column
             body={(rowData) => (
               <Authenticate allowedRoles={['Admin']}>
                 <div>
                   <button
-                    className="btn btn-icon me-1 "
-                    onClick={() => {
-                      editTransaction(rowData.id);
-                    }}
+                    className="btn btn-icon me-1"
+                    onClick={() => { editTransaction(rowData.id); }}
                   >
                     <i className="fa fa-pencil text-warning"></i>
                   </button>
-                  <Toast ref={toastRef} />
+                  <button
+                    className="btn btn-icon me-1"
+                    onClick={() => { acceptToDelete(rowData); }}
+                  >
+                    <i className="fa fa-trash text-danger"></i>
+                  </button>
                   <ConfirmDialog
                     visible={visible}
                     onHide={() => { setVisible(false); }}
                     message={`Are you sure you want to delete "${selectedTransaction?.name}"?`}
                     header="Confirmation"
                     icon="pi pi-exclamation-triangle"
-                    accept={() => { accept(); }}
+                    accept={accept}
                     style={{ width: '50vw' }}
                     breakpoints={{ '1100px': '75vw', '960px': '100vw' }}
                   />
-                  <button
-                    className="btn btn-icon me-1"
-                    onClick={() => {
-                      acceptToDelete(rowData);
-                    }}
-                  >
-                    <i className="fa fa-trash  text-danger"></i>
-                  </button>
-
+                  <Toast ref={toastRef} />
                 </div>
               </Authenticate>
             )}
@@ -201,4 +203,3 @@ const Transactions: React.FC = () => {
 };
 
 export default Transactions;
-
